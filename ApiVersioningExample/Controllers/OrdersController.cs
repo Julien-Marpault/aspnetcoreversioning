@@ -8,11 +8,13 @@ namespace ApiVersioningExample.Controllers;
 [ApiController]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("0.1-alpha")]
 [ApiVersion(1.0)]
 [ApiVersion(2.0)]
 public class OrdersController : ControllerBase
 {
     [HttpGet(""), MapToApiVersion(1.0)]
+    [MapToApiVersion("0.1-alpha")]
     public IActionResult GetV1()
     {
         List<OrderDtoV1> orders = new List<OrderDtoV1> {
