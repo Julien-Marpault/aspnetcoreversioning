@@ -20,36 +20,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.OperationFilter<SwaggerDefaultValues>();
+    //options.OperationFilter<SwaggerDefaultValues>();
+
     // retire le paramètre version de la documentation
     options.OperationFilter<RemoveVersionFromParameter>();
+
     // Remplace v{version} par le numéro de la version correspondant
     options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
 
 });
-//builder.Services.AddSwaggerGen(options =>
-//{
-
-
-//options.DocInclusionPredicate((version, desc) =>
-//{
-//    if (!desc.TryGetMethodInfo(out MethodInfo methodInfo))
-//        return false;
-
-//    var versions = methodInfo.DeclaringType
-//        .GetCustomAttributes(true)
-//        .OfType<ApiVersionAttribute>()
-//        .SelectMany(attr => attr.Versions);
-
-//    var maps = methodInfo
-//        .GetCustomAttributes(true)
-//        .OfType<MapToApiVersionAttribute>()
-//        .SelectMany(attr => attr.Versions)
-//        .ToArray();
-
-//    return versions.Any(v => $"v{v.ToString()}" == version) && (!maps.Any() || maps.Any(v => $"v{v.ToString()}" == version));
-//});
-//});
 
 var app = builder.Build();
 
